@@ -166,7 +166,7 @@ Di SRV-STORAGE-DC: **Services → DHCP → On**, pool `serverPool` dengan Networ
 | `default-router` / `dns-server` | Gateway dan DNS yang diberikan ke klien. |
 | `ip helper-address 10.120.239.2` | Mengubah broadcast DHCP klien CCTV menjadi unicast ke server DHCP di LAN lain. Tanpa ini broadcast tidak melewati router. |
 
-#### 3.3 Soal 5 – NAT
+#### 3.3 NAT
 
 **Tujuan:** semua host mengakses 8.8.8.8 dengan satu IP publik milik R-PUSAT (203.0.113.61). R-ISP tidak punya rute ke alamat privat.
 
@@ -190,7 +190,7 @@ R-PUSAT(config)# ip nat inside source list 1 interface GigabitEthernet0/0 overlo
 
 R-ISP hanya memiliki dua interface (203.0.113.62/30 dan 8.8.8.1/24) tanpa static route atau protokol routing. Balasan ke 203.0.113.61 sampai karena subnet itu terhubung langsung (connected). Jadi R-ISP tidak pernah menyimpan alamat privat 10.120.x.x.
 
-#### 3.4 Soal 6 – GRE Tunnel R-PUSAT ↔ R-PELABUHAN
+#### 3.4 GRE Tunnel (R-PUSAT ↔ R-PELABUHAN)
 
 ```
 R-PUSAT(config)# interface Tunnel0
@@ -248,9 +248,9 @@ R-PUSAT(config-if)# crypto map CMAP
 ! R-PELABUHAN: peer 10.120.241.37, ACL: permit gre host 10.120.241.54 host 10.120.241.37, crypto map di Serial0/0/0
 ```
 
-#### 3.5 Soal 7 – Dynamic Routing OSPF (file `K15_VLSM_OSPF.pkt`)
+#### 3.5 Soal 7 – Dynamic Routing OSPF (`K15_VLSM_OSPF.pkt`)
 
-**Link cadangan L7 R-DC ↔ R-UTARA:** subnet `10.120.241.56/30` (belum dipakai, berada di blok WAN).
+Link cadangan L7 R-DC ↔ R-UTARA: subnet `10.120.241.56/30` (belum dipakai, berada di blok WAN).
 
 ```
 R-DC(config)# interface Serial0/0/1
@@ -302,9 +302,9 @@ R-PUSAT(config-router)# default-information originate
 | `passive-interface` | Jaringan LAN tetap diiklankan, tetapi **tidak mengirim pesan OSPF Hello ke arah LAN pengguna** (sesuai ketentuan). |
 | `default-information originate` | Hanya R-PUSAT yang membuat default route (dari `ip route 0.0.0.0 ...` ke ISP) lalu menyebarkannya ke router lain, yang menerimanya otomatis sebagai `O*E2`. |
 
-**Pemulihan otomatis:** L7 membuat R-DC dan R-UTARA saling terhubung, sehingga ada dua jalur ke R-PUSAT. Bila L1 (R-PUSAT–R-DC) putus, R-DC mencapai R-PUSAT lewat R-UTARA. Bila L2 (R-PUSAT–R-UTARA) putus, R-UTARA dan R-PELABUHAN mencapai R-PUSAT lewat R-DC. OSPF menghitung ulang route sehingga konektivitas pulih tanpa campur tangan manual. Link yang menghubungkan satu router saja ke R-PUSAT (BARAT, TIMUR, SELATAN) tidak memiliki cadangan.
+L7 membuat R-DC dan R-UTARA saling terhubung, sehingga ada dua jalur ke R-PUSAT. Bila L1 (R-PUSAT–R-DC) putus, R-DC mencapai R-PUSAT lewat R-UTARA. Bila L2 (R-PUSAT–R-UTARA) putus, R-UTARA dan R-PELABUHAN mencapai R-PUSAT lewat R-DC. OSPF menghitung ulang route sehingga konektivitas pulih tanpa campur tangan manual. Link yang menghubungkan satu router saja ke R-PUSAT (BARAT, TIMUR, SELATAN) tidak memiliki cadangan.
 
-#### 3.6 Soal 8 – Layanan Aplikasi Smart City (domain `k15.smartcity.lab`)
+#### 3.6 Layanan Aplikasi Smart City (domain `k15.smartcity.lab`)
 
 **a. DNS (SRV-STORAGE-DC → Services → DNS → On):**
 
@@ -351,7 +351,7 @@ ftp> dir
 | `ping` PC-PJU-SELATAN → PC-SENSOR-BANJIR | Reply. |
 | `ping` PC-SCADA-PELABUHAN → PC-CCTV-KOTA | Reply. |
 
-![static](images/static-route.png)
+![static](images/soal-3/3-staticpusat.png)
 
 #### 4.2 Soal 4 – DHCP
 
