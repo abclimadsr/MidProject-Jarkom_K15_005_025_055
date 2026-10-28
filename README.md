@@ -32,7 +32,9 @@ Dari hasil perbandingan tersebut, VLSM dipilih karena mampu memenuhi kebutuhan a
 
 ### 2. Desain Topologi
 
-Topologi berbentuk **hub-and-spoke** dengan **R-PUSAT** sebagai hub. R-PUSAT terhubung ke 5 router kota lewat link serial, dan ke **R-ISP** lewat Gigabit Ethernet untuk akses internet. Satu link serial cadangan (R-DC ↔ R-UTARA) dan satu **GRE tunnel** (R-PUSAT ↔ R-PELABUHAN) melengkapi desain ini.
+Topologi berbentuk hub-and-spoke dengan R-PUSAT sebagai hub. 
+
+R-PUSAT terhubung ke 5 router kota lewat link serial, dan ke R-ISP lewat Gigabit Ethernet untuk akses internet. Satu link serial cadangan (R-DC ↔ R-UTARA) dan satu GRE tunnel (R-PUSAT ↔ R-PELABUHAN) melengkapi desain ini.
 
 #### 2.1 Daftar Router dan LAN
 
@@ -47,30 +49,29 @@ Topologi berbentuk **hub-and-spoke** dengan **R-PUSAT** sebagai hub. R-PUSAT ter
 | R-SELATAN | 10.120.64.0/19 (WiFi Selatan) | 10.120.240.128/25 (PJU) | |
 | R-PELABUHAN | 10.120.160.0/19 (SCADA) | 10.120.240.0/25 (Kantor Pelabuhan) | Terhubung ke R-UTARA dan tunnel ke R-PUSAT |
 
-#### 2.2 Daftar Link (Serial, WAN, Tunnel)
+#### 2.2 Daftar Link 
 
 | Link | Subnet | Sisi A | Sisi B | Keterangan |
 | :-- | :-- | :-- | :-- | :-- |
-| L1 PUSAT–DC | 10.120.241.32/30 | PUSAT Se0/0/0 = .33 (DCE) | DC Se0/0/0 = .34 | |
+| L1 PUSAT-DC | 10.120.241.32/30 | PUSAT Se0/0/0 = .33 (DCE) | DC Se0/0/0 = .34 | |
 | L2 PUSAT–UTARA | 10.120.241.36/30 | PUSAT Se0/0/1 = .37 (DCE) | UTARA Se0/0/0 = .38 | |
-| L3 PUSAT–SELATAN | 10.120.241.40/30 | PUSAT Se0/1/0 = .41 (DCE) | SELATAN Se0/0/0 = .42 | |
-| L4 PUSAT–TIMUR | 10.120.241.44/30 | PUSAT Se0/1/1 = .45 (DCE) | TIMUR Se0/0/0 = .46 | |
-| L5 PUSAT–BARAT | 10.120.241.48/30 | PUSAT Se0/2/0 = .49 (DCE) | BARAT Se0/0/0 = .50 | |
-| L6 UTARA–PELABUHAN | 10.120.241.52/30 | UTARA Se0/0/1 = .53 (DCE) | PELABUHAN Se0/0/0 = .54 | |
-| L7 Cadangan DC–UTARA | 10.120.241.56/30 | DC Se0/0/1 = .57 (DCE) | UTARA Se0/1/0 = .58 | Aktif di versi OSPF |
+| L3 PUSAT-SELATAN | 10.120.241.40/30 | PUSAT Se0/1/0 = .41 (DCE) | SELATAN Se0/0/0 = .42 | |
+| L4 PUSAT-TIMUR | 10.120.241.44/30 | PUSAT Se0/1/1 = .45 (DCE) | TIMUR Se0/0/0 = .46 | |
+| L5 PUSAT-BARAT | 10.120.241.48/30 | PUSAT Se0/2/0 = .49 (DCE) | BARAT Se0/0/0 = .50 | |
+| L6 UTARA-PELABUHAN | 10.120.241.52/30 | UTARA Se0/0/1 = .53 (DCE) | PELABUHAN Se0/0/0 = .54 | |
+| L7 Cadangan DC-UTARA | 10.120.241.56/30 | DC Se0/0/1 = .57 (DCE) | UTARA Se0/1/0 = .58 | Aktif di versi OSPF |
 | Uplink ISP | 203.0.113.60/30 | PUSAT Gi0/0 = .61 | ISP Gi0/0 = .62 | NAT outside |
 | ISP–Internet | 8.8.8.0/24 | ISP Gi0/1 = 8.8.8.1 | SRV-INTERNET = 8.8.8.8 | |
 | Tunnel GRE | 192.168.15.0/30 | PUSAT Tunnel0 = .1 | PELABUHAN Tunnel0 = .2 | Menembus jaringan serial |
 
 Semua blok `10.120.0.0/16` terpakai tanpa tumpang tindih: blok besar (/18, /19, /21) untuk LAN WiFi dan pegawai, blok menengah (/22–/25) untuk LAN sensor dan layanan, dan /30 untuk link point-to-point. Itulah keuntungan VLSM dibanding pembagian sama rata.
 
-![topologi](images/topologi.png)
-
 ---
+
 
 ### 3. Konfigurasi
 
-File `K15_VLSM.pkt` mencakup soal 3–6 dan 8. File `K15_VLSM_OSPF.pkt` adalah salinannya untuk soal 7. Pengalamatan IP mengikuti tabel bagian 2. Setiap interface router memakai IP statis (`ip address ...`, `no shutdown`, dan `clock rate 64000` di sisi DCE), dan semua server memakai IP statis.
+Pengalamatan IP mengikuti tabel bagian 2. Setiap interface router memakai IP statis (`ip address ...`, `no shutdown`, dan `clock rate 64000` di sisi DCE), dan semua server memakai IP statis.
 
 | Server | IP | Gateway |
 | :-- | :-- | :-- |
@@ -78,9 +79,10 @@ File `K15_VLSM.pkt` mencakup soal 3–6 dan 8. File `K15_VLSM_OSPF.pkt` adalah s
 | SRV-WEB-BALAIKOTA | 10.120.241.2/27 | 10.120.241.1 |
 | SRV-STORAGE-DC | 10.120.239.2/24 | 10.120.239.1 |
 
-#### 3.1 Soal 3 – Static Routing
 
-**Tujuan:** semua LAN saling terhubung hanya dengan static route. Default route hanya mengarah ke atas (keluar), dan R-PUSAT serta R-UTARA wajib punya route ke jaringan di bawahnya.
+#### 3.1 Static Routing
+
+Dilakukan agar semua LAN saling terhubung hanya dengan static route. Default route hanya mengarah ke atas (keluar), dan R-PUSAT serta R-UTARA wajib punya route ke jaringan di bawahnya.
 
 | Router | Default route (arah keluar) |
 | :-- | :-- |
@@ -124,7 +126,7 @@ ip route 10.120.241.0   255.255.255.224 192.168.15.1
 
 Setiap router cabang cukup memakai default route karena semua tujuan lain berada "di atas" (R-PUSAT). R-PUSAT menjadi satu-satunya router yang tahu semua LAN.
 
-#### 3.2 Soal 4 – DHCP
+#### 3.2 DHCP
 
 **Tujuan:** perangkat pengguna mendapat IP, gateway, dan DNS otomatis. Khusus LAN CCTV Kota, IP berasal dari server DHCP di LAN Server dan Storage DC.
 
