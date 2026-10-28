@@ -339,8 +339,6 @@ ftp> dir
 
 ### 4. Pengujian Mandiri
 
-> Hasil di bawah adalah hasil yang diharapkan dari konfigurasi. Ganti dengan screenshot hasil di Packet Tracer milikmu.
-
 #### 4.1 Soal 3 – Static Routing
 
 | Perintah | Hasil |
