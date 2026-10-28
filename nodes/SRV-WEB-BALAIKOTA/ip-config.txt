@@ -1,0 +1,8 @@
+Device: SRV-WEB-BALAIKOTA
+Interface: FastEthernet0
+IP Address: 10.120.241.2
+Subnet Mask: 255.255.255.224 (/27)
+Default Gateway: 10.120.241.1
+DNS Server: 10.120.239.2
+Services: HTTP (Port 80), HTTPS (Port 443)
+Domain: www.k15.smartcity.lab / k15.smartcity.lab

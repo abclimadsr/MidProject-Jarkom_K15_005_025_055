@@ -1,0 +1,8 @@
+DNS Service: ON
+Domain Name: k15.smartcity.lab
+
+Records Table:
+- www.k15.smartcity.lab    IN A    10.120.241.2
+- k15.smartcity.lab        IN A    10.120.241.2
+- ftp.k15.smartcity.lab    IN A    10.120.239.2
+- mail.k15.smartcity.lab   IN A    10.120.239.2

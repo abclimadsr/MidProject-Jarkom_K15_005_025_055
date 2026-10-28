@@ -1,0 +1,7 @@
+Device: SRV-INTERNET
+Interface: FastEthernet0
+IP Address: 8.8.8.8
+Subnet Mask: 255.255.255.0
+Default Gateway: 8.8.8.1
+DNS Server: 8.8.8.8
+Description: Public Global Internet Server (Simulasi Google DNS)
