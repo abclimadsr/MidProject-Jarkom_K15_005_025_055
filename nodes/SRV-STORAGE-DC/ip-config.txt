@@ -1,0 +1,7 @@
+Device: SRV-STORAGE-DC
+Interface: FastEthernet0
+IP Address: 10.120.239.2
+Subnet Mask: 255.255.255.0 (/24)
+Default Gateway: 10.120.239.1
+DNS Server: 10.120.239.2
+Services: DNS, DHCP Server (CCTV), FTP, Email

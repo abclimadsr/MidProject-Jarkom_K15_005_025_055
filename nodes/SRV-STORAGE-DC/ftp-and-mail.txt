@@ -1,0 +1,10 @@
+FTP Service: ON
+Account: cctv
+Password: cctv123
+Permissions: Read, Write, Delete, Rename, List (RWDNL)
+
+Email Service: ON
+Domain: k15.smartcity.lab
+Accounts:
+- pegawai@k15.smartcity.lab / pegawai123
+- pelabuhan@k15.smartcity.lab / pelabuhan123

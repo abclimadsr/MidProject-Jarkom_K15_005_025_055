@@ -1,0 +1,9 @@
+DHCP Service: ON
+Pool Name: serverPool
+Network Address: 10.120.96.0
+Subnet Mask: 255.255.224.0 (/19)
+Default Gateway: 10.120.96.1
+DNS Server: 10.120.239.2
+Start IP: 10.120.96.6
+Max Users: 512
+Target Clients: PC-CCTV-KOTA (via R-DC ip helper-address 10.120.239.2)

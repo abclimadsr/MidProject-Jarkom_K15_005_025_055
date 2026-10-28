@@ -1,4 +1,4 @@
-# MidProject Jarkom_K15_005_025_055
+# MID PROJECT KOMUNKASI DATA & JARINGAN KOMPUTER K15-005-025-055
 
 ## Anggota Kelompok
 
@@ -22,7 +22,7 @@
 
 ![tabel](images/tabel.png)
 
-> Rincian perhitungan disertakan dalam file spreadsheet [(.xslx)](sps/UTS%20JarKom%20K15.xlsx)
+> Rincian perhitungan disertakan dalam file spreadsheet [(UTS-KOMDAT-JARKOM-K15.xlsx)](result/UTS-KOMDAT-JARKOM-K15.xlsx)
 
 Berdasarkan hasil perhitungan pada spreadsheet, kedua skema memiliki kebutuhan aktual sebesar 61.752 alamat. VLSM dapat menampung kebutuhan tersebut dalam blok induk `/16` yang berkapasitas 65.536 alamat, dengan efisiensi penggunaan sebesar 94,23% dan sisa 3.784 alamat. Sementara itu, skema CIDR yang diuji memerlukan total alokasi 118.784 alamat untuk blok per router, sehingga membutuhkan blok induk `/15` berkapasitas 131.072 alamat.
 
@@ -339,8 +339,6 @@ ftp> dir
 
 ### 4. Pengujian Mandiri
 
-> Hasil di bawah adalah hasil yang diharapkan dari konfigurasi. Ganti dengan screenshot hasil di Packet Tracer milikmu.
-
 #### 4.1 Soal 3 – Static Routing
 
 | Perintah | Hasil |
@@ -399,7 +397,9 @@ ftp> dir
 | Failover: `shutdown` Se0/0/0 R-DC, tunggu ±40 detik, `show ip route ospf`, ping dari PC Pegawai ke PC-CCTV-KOTA | Route default R-DC berpindah via 10.120.241.58 (R-UTARA) dan ping tetap berhasil. |
 
 ![ospf-neighbor](images/ospf-neighbor.png)
+
 ![ospf-route](images/ospf-route.png)
+
 ![failover](images/failover.png)
 
 #### 4.6 Soal 8 – Layanan Aplikasi
