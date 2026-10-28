@@ -330,7 +330,7 @@ ftp> dir
 ```
 
 **d. Email antarpegawai (SRV-STORAGE-DC → Services → EMAIL → SMTP & POP3 On):**
-- Domain Name: `k15.smartcity.lab` → klik **Set**.
+- Domain Name: `k15.smartcity.lab`
 - Akun: `pegawai` / `pegawai123` dan `pelabuhan` / `pelabuhan123`.
 - PC-PEGAWAI-BK → **Desktop → Email → Configure Mail**: Your Name `Pegawai`, Email Address `pegawai@k15.smartcity.lab`, Incoming dan Outgoing Mail Server `mail.k15.smartcity.lab`, User Name `pegawai`, Password `pegawai123`.
 - PC-KANTOR-PELABUHAN dengan konfigurasi sama, memakai akun `pelabuhan@k15.smartcity.lab` / `pelabuhan123`.
@@ -339,7 +339,7 @@ ftp> dir
 
 ### 4. Pengujian Mandiri
 
-#### 4.1 Soal 3 – Static Routing
+#### 4.1 Static Routing
 
 | Perintah | Hasil |
 | :-- | :-- |
@@ -349,9 +349,21 @@ ftp> dir
 | `ping` PC-PJU-SELATAN → PC-SENSOR-BANJIR | Reply. |
 | `ping` PC-SCADA-PELABUHAN → PC-CCTV-KOTA | Reply. |
 
+##### Route IP Static R-PUSAT
+
 ![static](images/soal-3/3-staticpusat.png)
 
-#### 4.2 Soal 4 – DHCP
+##### Route IP Static R-UTARA
+
+
+![](images/soal-3/3-staticutara.png)
+
+##### Bukti Ping
+
+
+![](images/soal-3/3-ping.png)
+
+#### 4.2 DHCP
 
 | Perintah | Hasil |
 | :-- | :-- |
@@ -359,9 +371,27 @@ ftp> dir
 | `ipconfig` di PC-CCTV-KOTA | IP dari 10.120.96.0/19 (mulai .6), gateway 10.120.96.1, DNS 10.120.239.2. Pool berasal dari server (bukan router). |
 | `show ip dhcp binding` di R-PUSAT | Ada binding untuk PC Pegawai BK; tidak ada binding untuk CCTV. |
 
-![dhcp](images/dhcp.png)
+##### IP Config BK
 
-#### 4.3 Soal 5 – NAT
+
+![](images/soal-4/4-ipbk.png)
+
+##### IP CCTV Kota
+
+
+![](images/soal-4/4-ipcctv.png)
+
+##### Dokuumentasi DHCP di Router
+
+
+![](images/soal-4/4-dhcpbind.png)
+
+##### Dokumentasi DHCP di Server
+
+
+![](images/soal-4/4-dhcpsrv.png)
+
+#### 4.3  NAT
 
 | Perintah | Hasil |
 | :-- | :-- |
@@ -369,7 +399,9 @@ ftp> dir
 | `show ip nat translations` di R-PUSAT | Inside global 203.0.113.61:port dengan inside local 10.120.x.x. |
 | `show ip route` di R-ISP | Hanya `C`/`L` untuk 203.0.113.60/30 dan 8.8.8.0/24, tanpa route 10.120.0.0/16. |
 
-![nat](images/nat.png)
+![nat](images/soal-5/5-nat.png)
+
+![](images/soal-5/5-translate.png)
 
 #### 4.4 Soal 6 – GRE Tunnel
 
@@ -381,8 +413,12 @@ ftp> dir
 | `tracert` PC-PEGAWAI-BK → PC-SCADA-PELABUHAN | Hop: 10.120.224.1 → 192.168.15.2 → PC tujuan. |
 | Simulation Mode: ping PC Pegawai → SCADA, klik PDU di R-UTARA | Di *Outbound PDU Details* terlihat header GRE dengan isi paket asli tidak terenkripsi (membuktikan GRE tanpa enkripsi). |
 
-![tunnel](images/tunnel.png)
-![gre-sim](images/gre-simulation.png)
+![tunnel](images/soal-6/6-tunnel.png)
+
+
+![gre-sim](images/soal-6/6-tracer.png)
+
+![gre-sim](images/soal-6/6-simulation.png)
 
 #### 4.5 Soal 7 – OSPF (file `K15_VLSM_OSPF.pkt`)
 
@@ -396,11 +432,11 @@ ftp> dir
 | `show running-config \| section router ospf` di R-DC | Tidak ada `ip route 0.0.0.0` (default hanya di R-PUSAT). |
 | Failover: `shutdown` Se0/0/0 R-DC, tunggu ±40 detik, `show ip route ospf`, ping dari PC Pegawai ke PC-CCTV-KOTA | Route default R-DC berpindah via 10.120.241.58 (R-UTARA) dan ping tetap berhasil. |
 
-![ospf-neighbor](images/ospf-neighbor.png)
+![ospf-neighbor](images/soal-7/ospf-neighbor.png)
 
-![ospf-route](images/ospf-route.png)
+![ospf-route](images//soal-7/ospf-route.png)
 
-![failover](images/failover.png)
+![failover](images/soal-7/failover.png)
 
 #### 4.6 Soal 8 – Layanan Aplikasi
 
@@ -412,7 +448,49 @@ ftp> dir
 | FTP dari PC-CCTV-KOTA (`ftp ftp.k15.smartcity.lab`, `put`) | Login berhasil dan file terunggah; `dir` menampilkan file. |
 | Email: PC-PEGAWAI-BK kirim ke `pelabuhan@k15.smartcity.lab`, PC-KANTOR-PELABUHAN **Receive**, lalu balas | Surat terkirim dan diterima di kedua arah. |
 
-![dns](images/dns.png)
-![web](images/web.png)
-![ftp](images/ftp.png)
-![email](images/email.png)
+![dns](images/soal-8/8-dns.png)
+
+##### Web Dapat Dibuka dari Beberapa Wilayah
+
+
+![web](images/soal-8/8-web.png)
+
+
+![web](images/soal-8/8-web2.png)
+
+
+##### Layanan FTP, perangkat CCTV dapat mengubah file
+
+
+![ftp](images/soal-8/8-ftp.png)
+
+
+![ftp](images/soal-8/8-ftp2.png)
+
+
+![ftp](images/soal-8/8-ftpservices.png)
+
+
+##### Pengguna Balaikota dan Pelabuhan Saling Merespon
+
+**1. Email Config**
+
+![email](images/soal-8/8-email.png)
+
+**2. Pegawai Mengirim Email ke Pelabuhan**
+
+![email](images/soal-8/8-emailsent.png)
+
+**3. Mail diterima oleh Pelabuhan**
+
+![email](images/soal-8/8-emailreceived.png)
+
+
+**4. Pelabuhan dapat membalas mail kembali ke Pegawai**
+
+![email](images/soal-8/8-emailreply.png)
+
+
+**5. Balasan diterima**
+
+![email](images/soal-8/8-emailres.png)
