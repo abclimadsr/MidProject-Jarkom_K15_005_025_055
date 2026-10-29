@@ -10,6 +10,28 @@
 
 ## Laporan Dokumentasi
 
+### Struktur Direktori
+```
+.
+├── images/ # Bukti pengujian
+├── nodes/ # Konfigurasi per perangkat
+│   ├── R-BARAT/
+│   ├── R-DC/
+│   ├── R-ISP/
+│   ├── R-PELABUHAN/
+│   ├── R-PUSAT/
+│   ├── R-SELATAN/
+│   ├── R-TIMUR/
+│   ├── R-UTARA/
+│   ├── SRV-INTERNET/
+│   ├── SRV-STORAGE-DC/
+│   └── SRV-WEB-BALAIKOTA/
+├── result/
+│   ├── K15_VLSM.pkt
+│   ├── K15_VLSM_OSPF.pkt
+│   └── UTS-KOMDAT-JARKOM-K15.xlsx # Hasil pengerjaan UTS
+└── README.md
+```
 
 ### 1. Topologi dan Skema
 
